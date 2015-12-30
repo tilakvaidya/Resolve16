@@ -37,7 +37,7 @@ public class CreateActivity extends AppCompatActivity {
         currentDate = df.format(calendar.getTime());
         startDate = (Button)findViewById(R.id.button_start_date);
         startDate.setText(currentDate);
-        
+
        /* values = new ContentValues();
         values.put(ResolutionsDatabase.ResolutionsEntry.COLUMN_NAME_ENTRY_ID, "1");
         values.put(ResolutionsDatabase.ResolutionsEntry.COLUMN_NAME_TITLE, "First Resolution");
