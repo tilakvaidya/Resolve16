@@ -18,7 +18,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".CreateActivity"></activity>
+        <activity android:name=".CreateActivity" />
+
+        <service
+            android:name=".ResolutionService"
+            android:exported="false" />
+
+        <receiver
+            android:name=".ResolutionReceiver"
+            android:enabled="true"
+            android:exported="true"></receiver>
     </application>
 
 </manifest>
