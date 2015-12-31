@@ -9,13 +9,12 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:orientation="vertical"
-    android:background="#FFFFFF"
     tools:context="com.nvapps.resolve.CreateActivity">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Resolution"
+        android:text="@string/resolution_title"
         android:textSize="24sp"
         android:textStyle="bold"
         android:fontFamily="sans-serif-condensed"
@@ -24,14 +23,14 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="I will..."
+        android:hint="@string/resolution_hint"
         android:id="@+id/edit_title"
         />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Category"
+        android:text="@string/category_title"
         android:textSize="24sp"
         android:layout_marginTop="24dp"
         android:textStyle="bold"
@@ -41,7 +40,7 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="#Fitness, #Lifestyle"
+        android:hint="@string/category_hint"
         android:id="@+id/edit_category"
         />
 
@@ -59,13 +58,13 @@
         android:layout_height="wrap_content"
         android:background="#FFFFFF"
         android:layout_margin="4dp"
-        android:elevation="8dp">
+        android:elevation="4dp">
 
         <Button
+            android:id="@+id/button_start_date"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="?android:attr/selectableItemBackground"
-            android:id="@+id/button_start_date"
             android:drawableRight="@android:drawable/ic_menu_my_calendar"
             android:onClick="showDatePickerDialog"
             />
@@ -76,7 +75,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
-        android:text="Frequency"
+        android:text="@string/frequency_title"
         android:textSize="24sp"
         android:textStyle="bold"
         android:fontFamily="sans-serif-condensed"/>
@@ -86,14 +85,14 @@
         android:layout_height="wrap_content"
         android:background="#FFFFFF"
         android:layout_margin="4dp"
-        android:elevation="8dp">
+        android:elevation="4dp">
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="?android:attr/selectableItemBackground"
             android:id="@+id/button_frequency"
-            android:text="Daily"
+            android:text="@string/frequency_type"
             android:drawableRight="@android:drawable/ic_menu_day"
             />
 

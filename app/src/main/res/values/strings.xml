@@ -1,4 +1,10 @@
 <resources>
     <string name="app_name">Resolve</string>
     <string name="action_settings">Settings</string>
+    <string name="resolution_title">Resolution</string>
+    <string name="resolution_hint">I will…</string>
+    <string name="category_title">Category</string>
+    <string name="category_hint">#Fitness, #Lifestyle</string>
+    <string name="frequency_title">Frequency</string>
+    <string name="frequency_type">Daily</string>
 </resources>
