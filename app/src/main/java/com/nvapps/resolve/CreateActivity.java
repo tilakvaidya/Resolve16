@@ -6,42 +6,46 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
+import android.widget.EditText;
 
-import java.text.SimpleDateFormat;
+import java.text.DateFormat;
 import java.util.Calendar;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
 
 public class CreateActivity extends AppCompatActivity {
 
     private static final String TAG = "CreateActivity";
 
+    @Bind(R.id.edit_title)
+    EditText titleVal;
+    @Bind(R.id.edit_category)
+    EditText categoryVal;
+
     ResolutionsDatabase.ResolutionsDBHelper mDbHelper;
     SQLiteDatabase db;
-    Button startDate;
+
     String currentDate;
-    Calendar calendar;
-    SimpleDateFormat df;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create);
 
+        ButterKnife.bind(this);
+
         if (getSupportActionBar() != null)
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         mDbHelper = new ResolutionsDatabase.ResolutionsDBHelper(this);
         db = mDbHelper.getReadableDatabase();
-        calendar = Calendar.getInstance();
-        df = new SimpleDateFormat("dd-MM-yyyy");
-        currentDate = df.format(calendar.getTime());
-        startDate = (Button)findViewById(R.id.button_start_date);
-        startDate.setText(currentDate);
+
+        currentDate = DateFormat.getDateInstance().format(Calendar.getInstance().getTime());
 
     }
 
@@ -56,19 +60,24 @@ public class CreateActivity extends AppCompatActivity {
         }
     }
 
-    public void showDatePickerDialog(View v) {
-        DialogFragment newFragment = new DatePickerDialogFragment();
-        newFragment.show(getSupportFragmentManager(), "datePicker");
-    }
-
     public void setAlarm(View v) {
+
+        String title = titleVal.getText().toString();
+        String category = categoryVal.getText().toString();
+
+        if (title.equals("") || category.equals(""))
+            return;
+
+        titleVal.setText("");
+        categoryVal.setText("");
 
         Log.d(TAG, "setAlarm: Setting Alarm");
 
         AlarmManager manager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
 
         Intent intent = new Intent(this, ResolutionReceiver.class);
-        intent.putExtra("title", "Resolution: Get Fit");
+        intent.putExtra("title", title);
+        intent.putExtra("category", category);
 
         PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 200, intent, 0);
 

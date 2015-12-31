@@ -10,6 +10,7 @@ import android.util.Log;
 public class ResolutionReceiver extends BroadcastReceiver {
 
     private static final String TAG = "ResolutionReceiver";
+    private static final int NOTIFICATION_ID = 1;
 
     public ResolutionReceiver() {
     }
@@ -20,12 +21,14 @@ public class ResolutionReceiver extends BroadcastReceiver {
         Log.d(TAG, "onReceive: Received Intent");
 
         // Send Notification
-        NotificationManager manager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+        NotificationManager manager = (NotificationManager)
+                context.getSystemService(Context.NOTIFICATION_SERVICE);
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context)
                 .setContentTitle(intent.getStringExtra("title"))
+                .setContentText(intent.getStringExtra("category"))
                 .setSmallIcon(R.drawable.ic_add);
 
-        manager.notify(1, builder.build());
+        manager.notify(NOTIFICATION_ID, builder.build());
 
     }
 }
