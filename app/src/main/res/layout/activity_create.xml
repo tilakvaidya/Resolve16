@@ -67,6 +67,7 @@
             android:background="?android:attr/selectableItemBackground"
             android:drawableRight="@android:drawable/ic_menu_day"
             android:text="@string/frequency_type"
+            android:onClick="setFrequency"
             />
 
     </FrameLayout>

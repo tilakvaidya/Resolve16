@@ -7,6 +7,7 @@ import android.provider.BaseColumns;
 
 public final class ResolutionsDatabase {
     private static final String TEXT_TYPE = " TEXT";
+    private static final String INTEGER_TYPE = " INTEGER";
     private static final String COMMA_SEP = ", ";
     private static final String SQL_CREATE_ENTRIES =
             "CREATE TABLE " + ResolutionsEntry.TABLE_NAME + "(" +
@@ -14,8 +15,10 @@ public final class ResolutionsDatabase {
                     ResolutionsEntry.COLUMN_NAME_ENTRY_ID + TEXT_TYPE + COMMA_SEP +
                     ResolutionsEntry.COLUMN_NAME_TITLE + TEXT_TYPE + COMMA_SEP +
                     ResolutionsEntry.COLUMN_NAME_CATEGORY + TEXT_TYPE + COMMA_SEP +
-                    ResolutionsEntry.COLUMN_NAME_CHEAT_COUNTER + TEXT_TYPE +
-                    ")";
+                    ResolutionsEntry.COLUMN_NAME_FREQUENCY + INTEGER_TYPE + COMMA_SEP +
+                    ResolutionsEntry.COLUMN_NAME_DONE + INTEGER_TYPE + COMMA_SEP +
+                    ResolutionsEntry.COLUMN_NAME_CHEAT_COUNTER + INTEGER_TYPE +
+                    " )";
     private static final String SQL_DELETE_ENTRIES =
             "DROP TABLE IF EXISTS " + ResolutionsEntry.TABLE_NAME;
 
@@ -28,6 +31,8 @@ public final class ResolutionsDatabase {
         public static final String COLUMN_NAME_TITLE = "title";
         public static final String COLUMN_NAME_CATEGORY = "category";
         public static final String COLUMN_NAME_CHEAT_COUNTER = "cc";
+        public static final String COLUMN_NAME_FREQUENCY = "frequency";
+        public static final String COLUMN_NAME_DONE = "resolved";
     }
 
     public static class ResolutionsDBHelper extends SQLiteOpenHelper {
