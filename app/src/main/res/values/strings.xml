@@ -8,4 +8,9 @@
     <string name="frequency_title">Frequency</string>
     <string name="frequency_type">Daily</string>
     <string name="add_resolution_text">Add Resolution</string>
+    <string name="frequency_daily">Daily</string>
+    <string name="frequency_weekly">Weekly</string>
+    <string name="frequency_monthly">Monthly</string>
+    <string name="set_frequency">Set</string>
+
 </resources>

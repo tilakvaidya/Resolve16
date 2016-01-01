@@ -61,23 +61,22 @@
         android:elevation="4dp">
 
         <Button
-            android:id="@+id/button_frequency"
+            android:id="@+id/frequency_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="?android:attr/selectableItemBackground"
             android:drawableRight="@android:drawable/ic_menu_day"
             android:text="@string/frequency_type"
-            android:onClick="setFrequency"
             />
 
     </FrameLayout>
 
     <Button
+        android:id="@+id/add_resolution_btn"
         style="@style/Base.Widget.AppCompat.Button.Borderless.Colored"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
-        android:onClick="setAlarm"
         android:text="@string/add_resolution_text" />
 
 </LinearLayout>

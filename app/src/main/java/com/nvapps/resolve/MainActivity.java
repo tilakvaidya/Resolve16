@@ -1,29 +1,29 @@
 package com.nvapps.resolve;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.TextView;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity {
 
+    private static final String TAG = "MainActivity";
+
     @Bind(R.id.toolbar)
     Toolbar toolbar;
     @Bind(R.id.fab)
     FloatingActionButton fab;
-    @Bind(R.id.txt_check)
-    TextView check;
 
-    ResolutionsDatabase.ResolutionsDBHelper mDbHelper;
     SQLiteDatabase db;
 
 
@@ -40,6 +40,38 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(MainActivity.this, CreateActivity.class));
             }
         });
+
+        readDatabase();
+    }
+
+    private void readDatabase() {
+
+        db = new ResolutionsDatabase.ResolutionsDBHelper(this).getReadableDatabase();
+
+        String[] projection = {
+                ResolutionsDatabase.ResolutionsEntry.COLUMN_TITLE,
+                ResolutionsDatabase.ResolutionsEntry.COLUMN_CATEGORY
+        };
+
+        Cursor c = db.query(
+                ResolutionsDatabase.TABLE_NAME,
+                projection,
+                null,
+                null,
+                null,
+                null,
+                null
+        );
+
+
+        if (c.moveToFirst()) {
+            String title = c.getString(c.getColumnIndex(ResolutionsDatabase.ResolutionsEntry.COLUMN_TITLE));
+            String category = c.getString(c.getColumnIndex(ResolutionsDatabase.ResolutionsEntry.COLUMN_CATEGORY));
+
+            Log.d(TAG, "addResolution: " + title + " " + category);
+        }
+
+        c.close();
     }
 
     @Override

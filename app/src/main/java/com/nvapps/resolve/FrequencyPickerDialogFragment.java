@@ -2,51 +2,51 @@ package com.nvapps.resolve;
 
 import android.app.Dialog;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.CompoundButton;
-import android.widget.RadioButton;
 
-import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
-public class FrequencyPickerDialogFragment extends DialogFragment implements RadioButton.OnCheckedChangeListener{
+public class FrequencyPickerDialogFragment extends DialogFragment {
 
-    @Bind(R.id.rd_daily)
-    RadioButton daily;
-    @Bind(R.id.rd_weekly)
-    RadioButton weekly;
-    @Bind(R.id.rd_monthly)
-    RadioButton monthly;
+    private int selected = 0;
 
+    @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         View view = LayoutInflater.from(getContext()).inflate(R.layout.dialog_frequency_picker, null);
         ButterKnife.bind(this, view);
         builder.setView(view);
-        daily.setOnCheckedChangeListener(this);
-        monthly.setOnCheckedChangeListener(this);
-        weekly.setOnCheckedChangeListener(this);
-
 
         return builder.create();
     }
 
-        @Override
-        public void onCheckedChanged(CompoundButton v, boolean check) {
-            switch(v.getId()) {
-                case R.id.rd_daily:
-                    CreateActivity.frequency = 0;
-                case R.id.rd_weekly:
-                    CreateActivity.frequency = 1;
-                case R.id.rd_monthly:
-                    CreateActivity.frequency = 2;
+    @OnClick({R.id.radio_daily, R.id.radio_weekly, R.id.radio_monthly})
+    public void onFrequencySelected(View v) {
+        int id = v.getId();
+        if (id == R.id.radio_daily) {
+            selected = 0;
+        } else if (id == R.id.radio_weekly) {
+            selected = 1;
+        } else if (id == R.id.radio_monthly) {
+            selected = 2;
         }
-            this.getDialog().dismiss();
     }
 
+    @OnClick(R.id.set_btn)
+    public void setFrequency() {
+        FrequencyDialogListener activity = (FrequencyDialogListener) getActivity();
+        activity.onFinishedFrequencySelection(selected);
+        this.dismiss();
+    }
+
+    public interface FrequencyDialogListener {
+        void onFinishedFrequencySelection(int selection);
+    }
 
 }
