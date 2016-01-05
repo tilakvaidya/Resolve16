@@ -1,11 +1,15 @@
 package com.nvapps.resolve;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
@@ -23,6 +27,8 @@ public class MainActivity extends AppCompatActivity {
     Toolbar toolbar;
     @Bind(R.id.fab)
     FloatingActionButton fab;
+    @Bind(R.id.list_resolutions)
+    RecyclerView recyclerView;
 
     SQLiteDatabase db;
 
@@ -34,7 +40,18 @@ public class MainActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         setSupportActionBar(toolbar);
 
-        fab.setOnClickListener(new View.OnClickListener() {
+        boolean firstrun = getSharedPreferences("PREFERENCE", MODE_PRIVATE).getBoolean("firstrun", true);
+        if (firstrun){
+            setAlarm();
+            getSharedPreferences("PREFERENCE", MODE_PRIVATE)
+                    .edit()
+                    .putBoolean("firstrun", false)
+                    .commit();
+        }
+
+
+
+    fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(MainActivity.this, CreateActivity.class));
@@ -42,6 +59,16 @@ public class MainActivity extends AppCompatActivity {
         });
 
         readDatabase();
+
+    }
+
+    public void setAlarm(){
+        AlarmManager manager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        Intent intent = new Intent(this, ResolutionReceiver.class);
+        intent.putExtra("Title", "Resolution: Get Fit");
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 200, intent, 0);
+        manager.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + 10 * 1000, pendingIntent);
+        Log.d(TAG, "setAlarm: Alarm Set");
     }
 
     private void readDatabase() {
@@ -95,4 +122,5 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
 }
