@@ -20,12 +20,13 @@ public class ResolutionReceiver extends BroadcastReceiver {
 
         Log.d(TAG, "onReceive: Received Intent");
 
+        // TODO: Read Database, collate notifications
+
         // Send Notification
         NotificationManager manager = (NotificationManager)
                 context.getSystemService(Context.NOTIFICATION_SERVICE);
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context)
-                .setContentTitle(intent.getStringExtra("title"))
-                .setContentText(intent.getStringExtra("category"))
+                .setContentTitle("Hey! You have some resolutions")
                 .setSmallIcon(R.drawable.ic_add);
 
         manager.notify(NOTIFICATION_ID, builder.build());
